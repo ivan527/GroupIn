@@ -1,6 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const uuid = require('node-uuid');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 let exportedMethods = {
 	 getAllUsers() {
@@ -19,16 +21,26 @@ let exportedMethods = {
         });
     },
 
-	addUser(login, password) {
+    getUserByUsername(username){
+        return users().then((userCollection) => {
+            return userCollection.findOne({username: username}).then((user) => {
+                if(!user) return Promise.reject("User not found");
+                return user;
+            });
+        });
+    },
+
+	  addUser(username, password) {
         return users().then((userCollection) => {
             let newUser = {
-                login: login,
+                username: username,
                 _id: uuid.v4(),
+                password: bcrypt.hashSync(password, saltRounds),
                 profile: {
-					username: "",
-					mediaList: [],
-					_id: uuid.v4()
-				}
+					          username: username,
+					          mediaList: [],
+					          _id: uuid.v4()
+				        }
             };
 
             return userCollection.insertOne(newUser).then((newInsertInformation) => {
@@ -43,7 +55,7 @@ let exportedMethods = {
         return users().then((userCollection) => {
             return userCollection.removeOne({ _id: id }).then((deletionInfo) => {
                 if (deletionInfo.deletedCount === 0) {
-                    throw (`Could not delete user with id of ${id}`)
+                    throw (`Could not delete user with id of ${id}`);
                 }
             });
         });
@@ -87,6 +99,6 @@ let exportedMethods = {
 			});
 		});
 	}
-}
+};
 
 module.exports = exportedMethods;

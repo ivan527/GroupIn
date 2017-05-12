@@ -19,7 +19,7 @@ module.exports = (passport) => {
         passwordField: 'password'
     },
         (username, password, done) => {
-            User.findOne(username).then((user) => {
+            User.getUserByUsername(username).then((user) => {
                 if(!user){
                     return done(null, false, { message: 'Incorrect username.'});
                 }
