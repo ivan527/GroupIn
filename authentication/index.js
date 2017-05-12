@@ -9,7 +9,7 @@ module.exports = (passport) => {
     });
 
     passport.deserializeUser((username, done) => {
-        User.findOne(username).then((user) => {
+        User.getUserByUsername(username).then((user) => {
             done(null, user);
         });
     });
@@ -24,7 +24,7 @@ module.exports = (passport) => {
                     return done(null, false, { message: 'Incorrect username.'});
                 }
 
-                if (!(bcrypt.compareSync(password, user.hashedPassword))){
+                if (!(bcrypt.compareSync(password, user.password))){
                     return done(null, false, { message: 'Incorrect password.' });
                 }
                 return done(null, user);
