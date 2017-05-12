@@ -24,8 +24,9 @@ let exportedMethods = {
     getUserByUsername(username){
         return users().then((userCollection) => {
             return userCollection.findOne({username: username}).then((user) => {
-                if(!user) return Promise.reject("User not found");
                 return user;
+            }, (err) => {
+                return Promise.reject(err);
             });
         });
     },
