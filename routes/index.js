@@ -1,10 +1,12 @@
-const express = require('express');
-const router = express.Router();
+// routes/index.js
+const authCheck = require("./authenticate.js");
 
 const constructorMethod = (app) => {
+    app.use("/", authCheck);
+
     app.use("*", (req, res) => {
-        res.render("groupin/static", {});
-    })
+        res.status(404).json({error: "Page not found"});
+    });
 };
 
 module.exports = constructorMethod;
