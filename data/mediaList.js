@@ -40,7 +40,7 @@ let exportedMethods = {
 		return mediaList().then((mediaListCollection) => {
 			return mediaListCollection.removeOne({ _id: id }).then((deletionInfo) => {
 				if (deletionInfo.deletedCount === 0) {
-					return Promise.reject(`Could not delete media list with id of ${id}`)
+					  return Promise.reject(`Could not delete media list with id of ${id}`);
 				}
 			});
 		});
@@ -92,7 +92,7 @@ let exportedMethods = {
 			}
 
 			let newMediaListInfo = {
-				media: currentMediaList.media.splice(i, 1);
+				media: currentMediaList.media.splice(i, 1)
 			};
 
 			let updateCommand = {
@@ -101,9 +101,9 @@ let exportedMethods = {
 
 			return mediaList().then((mediaListCollection) => {
 				return mediaListCollection.updateOne({ _id: mediaListId }, updateCommand).then(() => {
-					return this.getMediaListById(mediaListId)
+					  return this.getMediaListById(mediaListId);
 				});
 			});
 		});
 	}
-}
+};

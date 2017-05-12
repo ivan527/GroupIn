@@ -1,5 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const passport = require("passport");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("connect-flash");
+
 const app = express();
 const static = express.static(__dirname + '/public');
 
@@ -35,10 +40,19 @@ const rewriteUnsupportedBrowserMethods = (req, res, next) => {
     next();
 };
 
+require("./authentication")(passport);
+
 app.use("/public", static);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(rewriteUnsupportedBrowserMethods);
+app.use(session({secret: "notagoodsecret.secret",
+                 saveUnitialized: true,
+                 resave: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
