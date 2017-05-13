@@ -14,6 +14,16 @@ const exphbs = require('express-handlebars');
 
 const Handlebars = require('handlebars');
 
+Handlebars.registerHelper('list', function(items, options) {
+  var out = "<ul>";
+
+  for(var i=0, l=items.length; i<l; i++) {
+    out = out + "<li>" + options.fn(items[i]) + "</li>";
+  }
+
+  return out + "</ul>";
+});
+
 const handlebarsInstance = exphbs.create({
     defaultLayout: 'main',
     // Specify helpers which are only registered on this instance.
