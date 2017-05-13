@@ -19,9 +19,11 @@ let exportedMethods = {
 		});
 	},
 
-	getMediaListByUser(user_id) {
-		
-	}
+	getMediaListsByUser(user_id) {
+		return mediaList().then((mediaListCollection) => {
+			return mediaListCollection.find({ members: {$elemMatch: user_id} }).toArray()
+		});
+	},
 
 	addMediaList(creator, creatorId) {
 		return mediaList().then((mediaListCollection) => {
