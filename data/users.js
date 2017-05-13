@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 let exportedMethods = {
-	 getAllUsers() {
+	getAllUsers() {
         return users().then((userCollection) => {
             return userCollection.find({}).toArray();
         });
@@ -31,7 +31,7 @@ let exportedMethods = {
         });
     },
 
-	  addUser(username, password) {
+	addUser(username, password) {
         return users().then((userCollection) => {
             let newUser = {
                 username: username,

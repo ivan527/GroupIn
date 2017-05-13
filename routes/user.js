@@ -15,12 +15,21 @@ router.post("/add", (req, res) => {
 
 router.get("/hub", (req, res) => {
     let profile = req.user.profile;
-    res.render('groupin/hub', {username: profile.username, mediaList: profile.mediaList});
+    let mediaListArray =
+    mediaListData.getMediaListsByUser(req.user._id).then((mediaLists) => {
+        res.render('groupin/hub', {username: profile.username, mediaList: mediaLists._id})
+    }, () => {
+        res.sendStatus(500);
+    });
 });
 
 router.post("/create", (req, res) => {
     let mediaListArgs = req.body;
-    
+    mediaListData.addMediaList(req.user.username, req.user._id).then((mediaList) => {
+        res.json(mediaList);
+    }, () => {
+        res.sendStatus(500);
+    });
 });
 
 
