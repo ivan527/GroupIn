@@ -11,7 +11,7 @@ router.get("/:_id", (req, res) => {
 });
 
 router.post("/:_id/addMember", (req, res) => {
-
+	result.sendStatus(200);
 });
 
 router.post("/:_id/addMedia", (req, res) => {
@@ -56,7 +56,7 @@ router.post("/:_id/addMedia", (req, res) => {
 });
 
 router.post("/:title", (req, res) => {
-
+	res.sendStatus(200);
 });
 
 router.post("/create", (req, res) => {
