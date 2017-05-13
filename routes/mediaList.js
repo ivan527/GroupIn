@@ -10,11 +10,11 @@ router.get("/:_id", (req, res) => {
 	});
 });
 
-router.post("/addMember", (req, res) => {
+router.post("/:_id/addMember", (req, res) => {
 
 });
 
-router.post("/addMedia", (req, res) => {
+router.post("/:_id/addMedia", (req, res) => {
 	let formInfo = req.body;
 	let errors = []
 	if (!formInfo.mediaTitle){
