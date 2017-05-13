@@ -33,11 +33,23 @@ router.post("/addMedia", (req, res) => {
 		errors.push("No reference link provided");
 	}
 
-	
+	if(errors.length > 0){
+		res.render("groupin/mediaList", {errors: errors, hasErrors:true, post: formInfo});
+		return;
+	}
+
+	let media = {
+		title: formInfo.mediaTitle,
+		type: formInfo.mediaType,
+		episodes: formInfo.numEpisodes,
+		reference: formInfo.refLink,
+		status: "unwatched",
+		voteToSkip: 0
+	}	
 });
 
 router.post("/:Title", (req, res) => {
-
+	
 });
 
 module.exports = router;
