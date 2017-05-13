@@ -5,16 +5,19 @@ const userData = data.users;
 const mediaListData = data.mediaList;
 
 router.get("/:_id", (req, res) => {
+	console.log("get list");
 	medialistData.getMediaListById(req.params.id).then((mediaList) => {
 		res.render('groupin/mediaList', {creator: mediaList.creator, media: mediaList.media})
 	});
 });
 
 router.post("/:_id/addMember", (req, res) => {
+	console.log("add members");
 	result.sendStatus(200);
 });
 
 router.post("/:_id/addMedia", (req, res) => {
+	console.log("add media");
 	let formInfo = req.body;
 	let errors = []
 	if (!formInfo.mediaTitle){
@@ -55,15 +58,14 @@ router.post("/:_id/addMedia", (req, res) => {
 	});
 });
 
-router.post("/:title", (req, res) => {
-	res.sendStatus(200);
-});
-
 router.post("/create", (req, res) => {
+	console.log("create");
     let mediaListArgs = req.body;
-    mediaListData.addMediaList(req.user.username, req.user._id).then((mediaList) => {
-        res.json(mediaList);
-    }, () => {
+    mediaListData.addMediaList(req.user.username, req.user._id, mediaListArgs.group_name).then((mediaList) => {
+    	console.log(mediaList);
+        res.redirect("/hub");
+    }, (err) => {
+    	console.log(err);
         res.sendStatus(500);
     });
 });

@@ -25,10 +25,11 @@ let exportedMethods = {
 		});
 	},
 
-	addMediaList(creator, creatorId) {
+	addMediaList(creator, creatorId, name) {
 		return mediaList().then((mediaListCollection) => {
 			let newMediaList = {
 				_id: uuid.v4(),
+				name: name,
 				creator: creator,
 				members: [creatorId],
 				media: []
@@ -37,7 +38,7 @@ let exportedMethods = {
 			return mediaListCollection.insertOne(newMediaList).then((newInsertInformation) => {
 				return newInsertInformation.insertedId;
 			}).then((newId) => {
-				return this.getUserById(newId);
+				return this.getMediaListById(newId);
 			});
 		});
 	},

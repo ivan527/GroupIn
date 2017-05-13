@@ -1,9 +1,10 @@
 <div>
     <h2>Create new Group</h2>
-    <form action="/newMedialist" method="post">
+    <form action="/medialist/create" method="POST">
         <div>
-            <label for="newGroup">Group Name:</label>
-            <input id="newGroup" type="text" name="groupName"/>
+            <label>Group Name:
+                <input type="text" id="group-name" placeholder="Group Name" name="group_name">
+            </label>
         </div>
         <input type="submit">
     </form>
