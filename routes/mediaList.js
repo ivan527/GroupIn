@@ -45,7 +45,14 @@ router.post("/:_id/addMedia", (req, res) => {
 		reference: formInfo.refLink,
 		status: "unwatched",
 		voteToSkip: 0
-	}	
+	}
+
+	mediaListData.addMedia(req.params._id, media)
+	.then((newMedia) => {
+		res.redirect('/${newMedia._id}');
+	}).catch((e) => {
+		res.status(500).json({error: e});
+	});
 });
 
 router.post("/:title", (req, res) => {
