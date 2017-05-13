@@ -8,7 +8,7 @@ const passport = require('passport');
 
 router.get("/", (req, res) => {
     if(req.isAuthenticated()){
-        res.redirect("/user");
+        res.redirect("/hub");
     } else {
         res.render("authenticate/login-signup", {error: req.flash('error')});
     }

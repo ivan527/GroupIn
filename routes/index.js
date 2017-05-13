@@ -1,7 +1,7 @@
 // routes/index.js
 const authCheck = require("./authenticate.js");
 
-const userRoutes = require("./user.js");
+const userRoutes = require("./hub.js");
 const mediaListRoutes = require("./mediaList.js");
 
 
@@ -17,10 +17,8 @@ const authenticationMiddleware = (req, res, next) => {
 
 const constructorMethod = (app) => {
     app.use("/", authCheck);
-    app.use("/user", authenticationMiddleware, userRoutes);
-    // app.use("/test", authenticationMiddleware, test);
-
-    app.use("/mediaList", mediaListRoutes);
+    app.use("/hub", authenticationMiddleware, userRoutes);
+    app.use("/medialist", authenticationMiddleware, mediaListRoutes);
 
     app.use("*", (req, res) => {
         res.status(404).json({error: "Page not found"});
