@@ -12,4 +12,9 @@ router.post("/add", (req, res) => {
     });
 });
 
+router.get("/profile", (req, res) => {
+    let profile = req.user.profile;
+    res.render('hub', {username: profile.username, mediaList: profile.mediaList});
+})
+
 module.exports = router;
