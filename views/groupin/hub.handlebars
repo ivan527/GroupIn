@@ -11,6 +11,8 @@
 
     <div>
         <p>Welcome, {{username}}!</p>
-        {{!-- {#list mediaList}}{{_id}} --}}
+        {{#if mediaList}}
+            {{#list mediaList}}{{_id}}{{/list}}
+        {{/if}}
     </div>
 </div>
