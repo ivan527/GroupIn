@@ -21,7 +21,7 @@ let exportedMethods = {
 
 	getMediaListsByUser(user_id) {
 		return mediaList().then((mediaListCollection) => {
-			return mediaListCollection.find({ members: {$elemMatch: user_id} }).toArray()
+			return mediaListCollection.find({members: user_id}).toArray()
 		});
 	},
 
@@ -113,3 +113,5 @@ let exportedMethods = {
 		});
 	}
 };
+
+module.exports = exportedMethods;

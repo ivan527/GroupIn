@@ -6,10 +6,9 @@ const mediaListData = data.mediaList;
 const router = express.Router();
 router.get("/", (req, res) => {
     let profile = req.user.profile;
-    let mediaListArray =
     mediaListData.getMediaListsByUser(req.user._id).then((mediaLists) => {
         res.render('groupin/hub', {username: profile.username, mediaList: mediaLists._id})
-    }, () => {
+    }, (err) => {
         res.sendStatus(500);
     });
 });
