@@ -40,4 +40,13 @@ router.post("/:title", (req, res) => {
 
 });
 
+router.post("/create", (req, res) => {
+    let mediaListArgs = req.body;
+    mediaListData.addMediaList(req.user.username, req.user._id).then((mediaList) => {
+        res.json(mediaList);
+    }, () => {
+        res.sendStatus(500);
+    });
+});
+
 module.exports = router;
