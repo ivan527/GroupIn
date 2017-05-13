@@ -36,7 +36,7 @@ router.post("/addMedia", (req, res) => {
 	
 });
 
-router.post("/:Title", (req, res) => {
+router.post("/:title", (req, res) => {
 
 });
 
