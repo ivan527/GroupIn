@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
+const mediaListData = data.mediaList;
 
 router.post("/add", (req, res) => {
     let userArgs = req.body;
@@ -12,9 +13,16 @@ router.post("/add", (req, res) => {
     });
 });
 
-router.get("/profile", (req, res) => {
+router.get("/hub", (req, res) => {
     let profile = req.user.profile;
-    res.render('hub', {username: profile.username, mediaList: profile.mediaList});
-})
+    res.render('groupin/hub', {username: profile.username, mediaList: profile.mediaList});
+});
+
+router.post("/create", (req, res) => {
+    let mediaListArgs = req.body;
+    
+});
+
+
 
 module.exports = router;

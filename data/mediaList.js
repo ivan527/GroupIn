@@ -19,6 +19,10 @@ let exportedMethods = {
 		});
 	},
 
+	getMediaListByUser(user_id) {
+		
+	}
+
 	addMediaList(creator, creatorId) {
 		return mediaList().then((mediaListCollection) => {
 			let newMediaList = {
