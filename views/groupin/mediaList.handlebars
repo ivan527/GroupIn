@@ -1,7 +1,7 @@
 <div>
     <h2>Media List</h2>
     <p id="listOfMedia"></p>
-    <form method="post">
+    <form method="POST" action="/addMedia">
         <h3>Add Media to List</h3>
         <div>
             <label for="mediaTitle">Title</label>
@@ -19,5 +19,23 @@
             <label for="refLink">Reference Link</label>
             <input id="refLink" type="url" placeholder="link to imdb"/>
         </div>
+        <input type="submit">
     </form>
+    <form method="POST" action="/addMember">
+        <h3>Add Member</h3>
+        <div>
+            <label for="newMember">Member ID:</label>
+            <input id="newMember" type="text" placeholder="ID of member to be added"/>
+        </div>
+        <input type="submit">
+    </form>
+    {{#if hasErrors}}
+    <ul class="error-list">
+        {{#each errors}}
+        <li>
+            {{this}}
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
 </div>
