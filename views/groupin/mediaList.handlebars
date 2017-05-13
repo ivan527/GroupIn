@@ -1,6 +1,11 @@
 <div>
     <h2>Media List</h2>
-    <p id="listOfMedia"></p>
+    <p id="listOfMedia">
+    <div>
+        <p>{{creator}}></p>
+        {{#list media}}{{_id}}{{/list}}
+    </div>
+    </p>
     <form method="POST" action="/addMedia">
         <h3>Add Media to List</h3>
         <div>

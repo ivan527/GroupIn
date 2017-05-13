@@ -1,4 +1,4 @@
-<div>Please login using the form below</div>
+<p>Please login using the form below</p>
 <form id="static-form" method="POST" action="/login">
     <div>
         <label>Username:
@@ -23,17 +23,19 @@
 </div>
 {{/if}}
 
-<h2>Sign up</h2>
-<form action="/signup" method="post">
+<p>Please signup using the form below</p>
+<form id="static-form" method="POST" action="/signup">
     <div>
-        <label>Username:</label>
-        <input type="text" name="username" placeholder="Username" id="signup-username"/><br/>
+        <label>Username:
+            <input type="text" id="signup-username" placeholder="username" name="username">
+        </label>
     </div>
     <div>
-        <label>Password:</label>
-        <input type="password" name="password" placeholder="hunter2" id="signup-password"/>
+        <label>Password:
+            <input type="password" id="signup-password" placeholder="password" name="password">
+        </label>
     </div>
     <div>
-        <input type="submit" value="Submit"/>
+        <input type="submit">
     </div>
 </form>

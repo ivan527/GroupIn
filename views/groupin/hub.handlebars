@@ -8,5 +8,8 @@
         <input type="submit">
     </form>
 
-    <p id="listOfMediaLists"></p>
+    <div>
+        <p>{{username}}></p>
+        {{#list mediaList}}{{_id}}{{/list}}
+    </div>
 </div>
