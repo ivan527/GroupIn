@@ -120,3 +120,11 @@ p {
 	margin: 0;
 	padding: 0;
 }
+
+.skipped {
+	color: red;
+}
+
+.watched {
+	color: blue;
+}

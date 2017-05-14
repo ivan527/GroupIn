@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
+const xss = require("xss");
 
 const passport = require('passport');
 
@@ -25,7 +26,17 @@ router.get("/logout", (req, res) => {
 
 router.post("/signup", (req, res, next) => {
     let userArgs = req.body;
-    userData.addUser(userArgs.username, userArgs.password).then((user) => {
+    username = xss(userArgs.username);
+    password = xss(userArgs.password);
+	if (username.length == 0) {
+		req.flash("error", "Please provide a username");
+		return res.redirect("/");
+	}
+	if (password.length == 0) {
+		req.flash("error", "Please provide a password");
+		return res.redirect("/");
+	}
+    userData.addUser(username, password).then((user) => {
         console.log(user);
         req.login(user, (err) => {
             if(err) next(err);
