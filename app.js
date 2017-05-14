@@ -15,10 +15,20 @@ const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 
 Handlebars.registerHelper('list', function(items, options) {
+	var out = "<ol>";
+
+	for(var i=0, l=items.length; i<l; i++) {
+		out = out + "<li>" + options.fn(items[i]) + "</li>";
+	}
+
+	return out + "</ol>";
+});
+
+Handlebars.registerHelper('list_media', function(items, options) {
   var out = "<ol>";
 
   for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<li>" + options.fn(items[i]) + "</li>";
+    out = out + "<li class=\"" + items[i].status + "\">" + options.fn(items[i]) + "</li>";
   }
 
   return out + "</ol>";
