@@ -12,8 +12,28 @@ router.get("/:_id", (req, res) => {
 });
 
 router.post("/:_id/addMember", (req, res) => {
+	let formInfo = req.body;
+	let errors = [];
 	console.log("add members");
-	result.sendStatus(200);
+	if (typeof formInfo.newMember !== "string" ||
+		formInfo.newMember.length === 0){
+			errors.push("No id provided");
+	}
+	
+	if(errors.length > 0){
+		errors.forEach((error) => {
+			req.flash("error", error);
+		});
+		console.log("redirectings");
+		return res.redirect(`/medialist/${req.params._id}`);
+	}
+
+	mediaListData.addMember(req.params.id, formInfo.newMember).then((newMember) => {
+		return res.redirect(`/medialist/${req.params._id}`);
+	}).catch((e) => {
+		return res.status(500).json({error: e});
+	});
+
 });
 
 router.post("/:_id/addMedia", (req, res) => {
