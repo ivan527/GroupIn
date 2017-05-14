@@ -14,17 +14,18 @@
     <div>
         <input class="submit-button" type="submit" value="LOGIN">
     </div>
+    {{#if error}}
+    <div id="error-container">
+        <div>Error: </div>
+        <div>
+            {{error}}
+        </div>
+    </div>
+    {{/if}}
     <p class="message">Don't have a login? <a href="#">Create an account</a></p>
 </form>
 
-{{#if error}}
-<div id="error-container">
-    <div>Error: </div>
-    <div>
-        {{error}}
-    </div>
-</div>
-{{/if}}
+
 
 <form id="signup-form" method="POST" action="/signup">
     <h2>Sign up</h2>
@@ -39,13 +40,20 @@
     <div>
         <input class="submit-button" type="submit" value="SIGN UP">
     </div>
+    {{#if error}}
+    <div id="error-container">
+        <div>Error: </div>
+        <div>
+            {{error}}
+        </div>
+    </div>
+    {{/if}}
     <p class="message">Have an account? <a href="#">Login</a></p>
 </form>
 
 </div>
 </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     $('.message a').click(function(){
    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");

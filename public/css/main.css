@@ -1,5 +1,6 @@
 body {
 	background-color: ivory;
+	font-family: sans-serif;
 }
 
 footer p {
@@ -103,4 +104,19 @@ p {
 .form .message a {
   color: #4CAF50;
   text-decoration: none;
+}
+
+#error-container {
+	background-color: #F0C0C0;
+	padding: 5px;
+	margin: 10px 0;
+}
+
+#hub-section {
+	padding: 25px 25px;
+}
+
+#hub-section p {
+	margin: 0;
+	padding: 0;
 }
