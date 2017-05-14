@@ -28,6 +28,14 @@ router.post("/signup", (req, res, next) => {
     let userArgs = req.body;
     username = xss(userArgs.username);
     password = xss(userArgs.password);
+	if (username.length == 0) {
+		req.flash("error", "Please provide a username");
+		return res.redirect("/");
+	}
+	if (password.length == 0) {
+		req.flash("error", "Please provide a password");
+		return res.redirect("/");
+	}
     userData.addUser(username, password).then((user) => {
         console.log(user);
         req.login(user, (err) => {

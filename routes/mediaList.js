@@ -130,6 +130,10 @@ router.post("/create", (req, res) => {
 	console.log("create");
     let mediaListArgs = req.body;
     mediaListArgs.group_name = xss(mediaListArgs.group_name);
+	if (mediaListArgs.group_name.length == 0) {
+		req.flash("error", "Please specify a group name");
+		return req.redirect("/hub");
+	}
     mediaListData.addMediaList(req.user.username, req.user._id, mediaListArgs.group_name).then((mediaList) => {
 		res.redirect("/hub");
     }, (err) => {
