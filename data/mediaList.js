@@ -43,7 +43,7 @@ let exportedMethods = {
 				creator: creator,
 				members: [creatorId],
 				media: [],
-				progress: []
+				progress: [[creatorId, 0]]
 			};
 
 			return mediaListCollection.insertOne(newMediaList).then((newInsertInformation) => {
@@ -71,7 +71,7 @@ let exportedMethods = {
 				progress: currentMediaList.progress.slice()
 			};
 			newMemberListInfo.members.push(memberId);
-			newMemberListInfo.progress.push((memberId, 0));
+			newMemberListInfo.progress.push([memberId, 0]);
 
 			let updateCommand = {
 				$set: newMemberListInfo

@@ -33,6 +33,7 @@ router.get("/:_mediaListId/progress", (req, res) => {
 	mediaListData.incrementProgress(req.params._mediaListId, req.user._id).then((mediaList) => {
 		return res.redirect(`/medialist/${req.params._mediaListId}`);
 	}).catch((e) => {
+		console.log(e);
 		return res.status(500).json({error: e});
 	});
 });
