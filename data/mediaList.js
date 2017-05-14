@@ -56,8 +56,9 @@ let exportedMethods = {
 	addMember(mediaListId, memberId) {
 		return this.getMediaListById(mediaListId).then((currentMediaList) => {
 			let newMemberListInfo = {
-				members: currentMediaList.members.append(memberId)
+				members: currentMediaList.members.slice()
 			};
+			newMemberListInfo.members.push(memberId);
 
 			let updateCommand = {
 				$set: newMemberListInfo
@@ -74,8 +75,9 @@ let exportedMethods = {
 	addMedia(mediaListId, media) {
 		return this.getMediaListById(mediaListId).then((currentMediaList) => {
 			let newMemberListInfo = {
-				media: currentMediaList.media.append(media)
+				media: currentMediaList.media.slice()
 			};
+			newMemberListInfo.media.push(media);
 
 			let updateCommand = {
 				$set: newMemberListInfo
