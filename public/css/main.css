@@ -112,11 +112,11 @@ p {
 	margin: 10px 0;
 }
 
-#hub-section {
+#hub-section, #media-list {
 	padding: 25px 25px;
 }
 
-#hub-section p {
+#hub-section p, #media-list p {
 	margin: 0;
 	padding: 0;
 }

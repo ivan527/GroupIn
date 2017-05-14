@@ -1,4 +1,4 @@
-<div>
+<div class="form" id="media-list">
     <h2>Media List</h2>
     <div id="listOfMedia">
         <p>Creator: {{mediaList.creator}}</p>
@@ -27,7 +27,9 @@
             <label for="refLink">Reference Link</label>
             <input id="refLink" type="url" placeholder="link to imdb" name="refLink"/>
         </div>
-        <input type="submit">
+        <div>
+            <input class="submit-button" type="submit" value="ADD MEDIA">
+        </div>
     </form>
     <form method="POST" action="/medialist/{{mediaList._id}}/addMember">
         <h3>Add Member</h3>
@@ -35,7 +37,9 @@
             <label for="newMember">Member ID:</label>
             <input id="newMember" type="text" placeholder="ID of member to be added" name="newMember"/>
         </div>
-        <input type="submit">
+        <div>
+            <input class="submit-button" type="submit" value="ADD MEMBER">
+        </div>
     </form>
     {{#if errors}}
         <div>
