@@ -136,7 +136,18 @@ let exportedMethods = {
 				return this.getMediaListById(mediaListId);
 			});
 		});
-	}
+	},
+
+	setMediaToWatched(mediaList, mediaId) {
+		return this.getMediaListById(mediaListId).then((currentMediaList) => {
+			let updateCommand = {};
+			updateCommand["media.$.status"] = "watched"
+
+			return mediaListCollection.update({_id: mediaListId, media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
+				return this.getMediaListById(mediaListId);
+			});
+		});
+	},
 };
 
 module.exports = exportedMethods;

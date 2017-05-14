@@ -12,10 +12,22 @@ router.get("/:_id", (req, res) => {
 });
 
 router.get("/:_mediaListId/:_mediaId/remove", (req, res) => {
-	mediaListData.getMediaListById(req.params._id).then((mediaList) => {
+	mediaListData.voteToSkipById(req.params._mediaListId, req.params._mediaId).then((mediaList) => {
+		return res.redirect(`/medialist/${req.params._mediaListId}`);
+	}).catch((e) => {
+		return res.status(500).json({error: e});
+	});
+});
 
-	})
-})
+router.get("/:_mediaListId/:_mediaId/watched", (req, res) => {
+	mediaListData.setMediaToWatched(req.params._mediaListId, req.params._mediaId).then((mediaList) => {
+		return res.redirect(`/medialist/${req.params._mediaListId}`);
+	}).catch((e) => {
+		return res.status(500).json({error: e});
+	});
+});
+
+
 
 router.post("/:_id/addMember", (req, res) => {
 	let formInfo = req.body;
