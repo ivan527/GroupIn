@@ -1,6 +1,7 @@
 body {
-	background-color: ivory;
+	background-color: #fffff0;
 	font-family: sans-serif;
+  margin: 0;
 }
 
 footer p {
@@ -8,7 +9,7 @@ footer p {
 }
 
 h1 {
-	color: #4CAF50;
+	color: #38a93d;
 	font-family: 'Helvetica Neue', sans-serif; 
 	font-size: 5.5em;
 	font-weight: 900;
@@ -96,17 +97,17 @@ p {
 
 .form .message {
   margin: 15px 0 0;
-  color: #b3b3b3;
+  color: #767676;
   font-size: 14px;
   text-align: center;
 }
 
 .form .message a {
-  color: #4CAF50;
+  color: #008b00;
   text-decoration: none;
 }
 
-#error-container {
+.error-container {
 	background-color: #F0C0C0;
 	padding: 5px;
 	margin: 10px 0;
@@ -121,10 +122,45 @@ p {
 	padding: 0;
 }
 
-.skipped {
+.skipped, .Skip {
 	color: red;
 }
 
 .watched {
 	color: blue;
+}
+
+.vote-button {
+  text-decoration: none;
+  border-style: solid;
+  border-color: #43A047;
+  background-color: #A9E2AD;
+}
+
+.vote-button:hover {
+  background-color: #43C047;
+}
+
+.vote-button:active, .vote-button:focus {
+  background-color: #436047;
+}
+
+#home {
+  text-align: center;
+  background-color: #4CAF50;
+  padding: 10px;
+}
+
+#home a {
+  margin: 20px;
+  text-decoration: none;
+  color: #003d00;
+}
+
+#home a:hover {
+  color: #002200;
+}
+
+#home a:active, a:focus {
+  color: #00DD00;
 }

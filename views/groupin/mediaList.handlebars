@@ -5,8 +5,8 @@
         <a href="/medialist/{{mediaList._id}}/progress">Progress: {{progress}}</a>
         {{#list_media mediaList.media}}
             {{title}}
-            <a href="/medialist/media/{{_id}}/skip">👎</a>
-            <a href="/medialist/media/{{_id}}/watched">👀</a>
+            <a class="vote-button" href="/medialist/media/{{_id}}/skip">👎 (skip)</a>
+            <a class="vote-button" href="/medialist/media/{{_id}}/watched">👀 (watch)</a>
         {{/list_media}}
     </div>
     <form method="POST" action="/medialist/{{mediaList._id}}/addMedia">
@@ -42,7 +42,7 @@
         </div>
     </form>
     {{#if errors}}
-        <div>
+        <div class="error-container">
             <ul class="error-list">
                 {{#each errors}}
                     <li>
@@ -52,3 +52,4 @@
             </ul>
         </div>
     {{/if}}
+</div>

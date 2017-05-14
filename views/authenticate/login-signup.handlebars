@@ -15,7 +15,7 @@
         <input class="submit-button" type="submit" value="LOGIN">
     </div>
     {{#if error}}
-    <div id="error-container">
+    <div class="error-container">
         <div>Error: </div>
         <div>
             {{error}}
@@ -40,15 +40,15 @@
     <div>
         <input class="submit-button" type="submit" value="SIGN UP">
     </div>
-    <p class="message">Have an account? <a href="#">Login</a></p>
     {{#if signup_error}}
-        <div id="error-container">
+        <div class="error-container">
             <div>Error: </div>
             <div>
                 {{signup_error}}
             </div>
         </div>
     {{/if}}
+    <p class="message">Have an account? <a href="#">Login</a></p>
 </form>
 
 
