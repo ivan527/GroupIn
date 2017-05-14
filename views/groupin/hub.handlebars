@@ -12,7 +12,9 @@
     <div>
         <p>Welcome, {{username}}!</p>
         {{#if mediaList}}
-            {{#list mediaList}}{{name}}{{/list}}
+            {{#list mediaList}}
+                <a href="/medialist/{{_id}}">{{name}}</a>
+            {{/list}}
         {{/if}}
     </div>
 </div>
