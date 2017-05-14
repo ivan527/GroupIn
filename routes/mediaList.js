@@ -40,7 +40,11 @@ router.get("/media/:_mediaId/watched", (req, res) => {
 
 router.get("/:_mediaListId/progress", (req, res) => {
 	mediaListData.incrementProgress(req.params._mediaListId, req.user._id).then((mediaList) => {
-		return res.redirect(`/medialist/${req.params._mediaListId}`);
+		mediaList.progress.forEach((progress) => {
+			if(progress[0] === req.user._id){
+				return res.json(progress);
+			}
+		});
 	}).catch((e) => {
 		console.log(e);
 		return res.status(500).json({error: e});

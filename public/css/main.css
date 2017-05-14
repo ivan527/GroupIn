@@ -164,3 +164,11 @@ p {
 #home a:active, a:focus {
   color: #00DD00;
 }
+
+#progress_content {
+    display: inline;
+}
+
+#progress {
+    cursor: pointer;
+}
