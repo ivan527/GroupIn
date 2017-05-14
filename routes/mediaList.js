@@ -7,7 +7,15 @@ const mediaListData = data.mediaList;
 router.get("/:_id", (req, res) => {
 	mediaListData.getMediaListById(req.params._id).then((mediaList) => {
 		console.log(mediaList);
-		res.render('groupin/mediaList', {mediaList: mediaList, errors: req.flash("error")});
+		let i;
+		let progress;
+		for (i = 0; i < mediaList.progress.length; i++) {
+			if (mediaList.progress[i][0] == req.user._id) {
+				progress = mediaList.progress[i][1];
+				break;
+			}
+		}
+		res.render('groupin/mediaList', {mediaList: mediaList, errors: req.flash("error"), progress: progress});
 	});
 });
 
