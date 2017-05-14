@@ -32,7 +32,8 @@ let exportedMethods = {
 				name: name,
 				creator: creator,
 				members: [creatorId],
-				media: []
+				media: [],
+				progress: []
 			};
 
 			return mediaListCollection.insertOne(newMediaList).then((newInsertInformation) => {
@@ -56,9 +57,11 @@ let exportedMethods = {
 	addMember(mediaListId, memberId) {
 		return this.getMediaListById(mediaListId).then((currentMediaList) => {
 			let newMemberListInfo = {
-				members: currentMediaList.members.slice()
+				members: currentMediaList.members.slice(),
+				progress: currentMediaList.progress.slice()
 			};
 			newMemberListInfo.members.push(memberId);
+			newMemberListInfo.progress.push((memberId, 0));
 
 			let updateCommand = {
 				$set: newMemberListInfo
@@ -95,7 +98,7 @@ let exportedMethods = {
 		return this.getMediaListById(mediaListId).then((currentMediaList) => {
 			let i;
 			for (i = 0; i < currentMediaList.media.length; i++) {
-				if (currentMediaList.media[i].Title == mediaTitle) {
+				if (currentMediaList.media[i].title == mediaTitle) {
 					break;
 				}
 			}
@@ -138,7 +141,7 @@ let exportedMethods = {
 		});
 	},
 
-	setMediaToWatched(mediaList, mediaId) {
+	setMediaToWatched(mediaListId, mediaId) {
 		return this.getMediaListById(mediaListId).then((currentMediaList) => {
 			let updateCommand = {};
 			updateCommand["media.$.status"] = "watched"
@@ -148,6 +151,35 @@ let exportedMethods = {
 			});
 		});
 	},
+
+	incrementProgress(mediaListId, memberId) {
+		return this.getMediaListById(mediaListId).then((currentMediaList) => {
+			let i;
+			let progress;
+			for (i = 0; i < currentMediaList.progress.length; i++) {
+				if (currentMediaList.progress[i][0] == memberId) {
+					progress = currentMediaList.progress[i][1] + 1
+					break;
+				}
+			}
+
+			let newMemberListInfo = {
+				progress: currentMediaList.progress.slice()
+			};
+
+			newMemberListInfo.progress[i][1] = progress;
+
+			let updateCommand = {
+				$set: newMemberListInfo
+			};
+
+			return mediaList().then((mediaListCollection) => {
+				return mediaListCollection.updateOne({ _id: mediaListId }, updateCommand).then(() => {
+					return this.getMediaListById(mediaListId);
+				});
+			});
+		})
+	}
 };
 
 module.exports = exportedMethods;
