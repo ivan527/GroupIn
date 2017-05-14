@@ -1,8 +1,9 @@
 <div class="form" id="hub-section">
     <div>
         <p>Welcome, {{username}}!</p>
-        <p>Here are your current lists:</p>
+        <p>Your unique user id is <span id="user-id">{{_id}}</span></p>
         {{#if mediaList}}
+        <p>Here are your current lists:</p>
             {{#list mediaList}}
                 <a href="/medialist/{{_id}}">{{name}}</a>
             {{/list}}

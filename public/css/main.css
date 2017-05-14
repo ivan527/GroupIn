@@ -122,14 +122,6 @@ p {
 	padding: 0;
 }
 
-.skipped, .Skip {
-	color: red;
-}
-
-.watched {
-	color: blue;
-}
-
 .vote-button {
   text-decoration: none;
   border-style: solid;
@@ -171,4 +163,25 @@ p {
 
 #progress {
     cursor: pointer;
+}
+
+#user-id {
+  color: black;
+  font-weight: bold;
+}
+
+.skipped, .Skip {
+	color: red;
+}
+
+.watched {
+	color: blue;
+}
+
+.Skip .ref {
+	color: red;
+}
+
+.watched .ref {
+	color: blue;
 }
