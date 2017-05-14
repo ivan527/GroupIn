@@ -3,7 +3,8 @@
     <div id="listOfMedia">
         <p>Creator: {{mediaList.creator}}</p>
         {{#list mediaList.media}}
-            {{title}}<a href="/medialist/{{mediaList._id}}/{{title}}/skip">👎</a>
+            {{title}}
+            <a href="/medialist/{{mediaList._id}}/{{title}}/skip">👎</a>
             <a href="/medialist/{{mediaList._id}}/{{title}}/watched">👀</a>
         {{/list}}
     </div>
