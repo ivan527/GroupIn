@@ -15,13 +15,13 @@ const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 
 Handlebars.registerHelper('list', function(items, options) {
-  var out = "<ul>";
+  var out = "<ol>";
 
   for(var i=0, l=items.length; i<l; i++) {
     out = out + "<li>" + options.fn(items[i]) + "</li>";
   }
 
-  return out + "</ul>";
+  return out + "</ol>";
 });
 
 const handlebarsInstance = exphbs.create({
