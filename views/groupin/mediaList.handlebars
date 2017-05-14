@@ -6,7 +6,7 @@
             <a onclick="updateProgress()">Progress: <div id="progress_content">{{progress}}</div> ▲</a>
         </div>
         {{#list_media mediaList.media}}
-            {{title}}
+            <a href="{{reference}}">{{title}}</a>
             <a class="vote-button" href="/medialist/media/{{_id}}/skip">👎 (skip)</a>
             <a class="vote-button" href="/medialist/media/{{_id}}/watched">👀 (watch)</a>
         {{/list_media}}
