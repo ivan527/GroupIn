@@ -1,32 +1,30 @@
 <div>
     <h2>Media List</h2>
-    <p id="listOfMedia">
-    <div>
-        <p>{{creator}}></p>
-        {{#list media}}{{_id}}{{/list}}
+    <div id="listOfMedia">
+        <p>Creator: {{mediaList.creator}}</p>
+        {{#list mediaList.media}}{{title}}{{/list}}
     </div>
-    </p>
-    <form method="POST" action="/addMedia">
+    <form method="POST" action="/medialist/{{mediaList._id}}/addMedia">
         <h3>Add Media to List</h3>
         <div>
             <label for="mediaTitle">Title</label>
-            <input id="mediaTitle" type="text" placeholder="title of media"/>
+            <input id="mediaTitle" type="text" placeholder="title of media" name="mediaTitle"/>
         </div>
         <div>
             <label for="mediaType">Type of Media</label>
-            <input id="mediaType" type="text" placeholder="type of media"/>
+            <input id="mediaType" type="text" placeholder="type of media" name="mediaType"/>
         </div>
         <div>
             <label for="numEpisodes">Number of Episodes</label>
-            <input id="numEpisodes" type="number" placeholder="number of Episodes"/>
+            <input id="numEpisodes" type="number" placeholder="number of Episodes" name="numEpisodes"/>
         </div>
         <div>
             <label for="refLink">Reference Link</label>
-            <input id="refLink" type="url" placeholder="link to imdb"/>
+            <input id="refLink" type="url" placeholder="link to imdb" name="refLink"/>
         </div>
         <input type="submit">
     </form>
-    <form method="POST" action="/addMember">
+    <form method="POST" action="/medialist/{{mediaList._id}}/addMember">
         <h3>Add Member</h3>
         <div>
             <label for="newMember">Member ID:</label>
@@ -34,13 +32,14 @@
         </div>
         <input type="submit">
     </form>
-    {{#if hasErrors}}
-    <ul class="error-list">
-        {{#each errors}}
-        <li>
-            {{this}}
-        </li>
-        {{/each}}
-    </ul>
+    {{#if errors}}
+        <div>
+            <ul class="error-list">
+                {{#each errors}}
+                    <li>
+                        {{this}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
     {{/if}}
-</div>
