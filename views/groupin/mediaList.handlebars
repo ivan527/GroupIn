@@ -3,7 +3,10 @@
     <div id="listOfMedia">
         <p>Creator: {{mediaList.creator}}</p>
         {{#list mediaList.media}}
-            {{title}}<a href="/medialist/{{mediaList._id}}/{{_id}}/remove">👎</a>
+            {{title}}
+            <a href="/medialist/{{mediaList._id}}/{{_id}}/skip">👎</a>
+            <a href="/medialist/{{mediaList._id}}/{{_id}}/watched">👀</a>
+>>>>>>> 819cc08c8bcb4459e10df971db1619f770eeab7d
         {{/list}}
     </div>
     <form method="POST" action="/medialist/{{mediaList._id}}/addMedia">
