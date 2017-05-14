@@ -2,6 +2,7 @@
     <h2>Media List</h2>
     <div id="listOfMedia">
         <p>Creator: {{mediaList.creator}}</p>
+        <a href="/medialist/{{mediaList._id}}/progress">Progress</a>
         {{#list mediaList.media}}
             {{title}}
             <a href="/medialist/{{mediaList._id}}/{{_id}}/skip">👎</a>
