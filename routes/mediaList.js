@@ -49,8 +49,8 @@ router.post("/:_id/addMedia", (req, res) => {
 		errors.push("No type provided");
 	}
 
-	if(typeof formInfo.numEpisodes !== "number" ||
-		formInfo.numEpisodes === 0){
+	if(typeof formInfo.numEpisodes !== "string" ||
+		formInfo.numEpisodes.length === 0){
 		errors.push("No number of Episodes provided");
 	}
 	
@@ -70,7 +70,7 @@ router.post("/:_id/addMedia", (req, res) => {
 	let media = {
 		title: formInfo.mediaTitle,
 		type: formInfo.mediaType,
-		episodes: formInfo.numEpisodes,
+		episodes: parseInt(formInfo.numEpisodes),
 		reference: formInfo.refLink,
 		status: "unwatched",
 		voteToSkip: 0
@@ -80,6 +80,7 @@ router.post("/:_id/addMedia", (req, res) => {
 	.then((newMedia) => {
 		return res.redirect(`/medialist/${req.params._id}`);
 	}).catch((e) => {
+		console.log(e);
 		return res.status(500).json({error: e});
 	});
 });
@@ -88,8 +89,7 @@ router.post("/create", (req, res) => {
 	console.log("create");
     let mediaListArgs = req.body;
     mediaListData.addMediaList(req.user.username, req.user._id, mediaListArgs.group_name).then((mediaList) => {
-    	console.log(mediaList);
-        res.redirect("/hub");
+		res.redirect("/hub");
     }, (err) => {
     	console.log(err);
         res.sendStatus(500);
