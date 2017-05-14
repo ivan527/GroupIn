@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
     let profile = req.user.profile;
     mediaListData.getMediaListsByUser(req.user._id).then((mediaLists) => {
-        res.render('groupin/hub', {username: profile.username, mediaList: mediaLists})
+        res.render('groupin/hub', {username: profile.username, mediaList: mediaLists, errors: req.flash("error")})
     }, (err) => {
         res.sendStatus(500);
     });
