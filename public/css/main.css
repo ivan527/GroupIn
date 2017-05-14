@@ -1,24 +1,30 @@
+body {
+	background-color: ivory;
+}
+
+footer p {
+	text-align: center;
+}
+
 h1 {
-	color: darkgreen;
+	color: #4CAF50;
 	font-family: 'Helvetica Neue', sans-serif; 
-	font-size: 120px;
+	font-size: 5.5em;
 	font-weight: 900;
 	letter-spacing: -1px; 
 	line-height: 1; 
 	text-align: center;
+	text-shadow: 3px 3px #A9E2AD;
 }
 
 
 h2 { 
 	color: #110; 
 	font-family: 'Open Sans', sans-serif; 
-	font-size: 20px; 
-	font-weight: 300; 
-	line-height: 32px; 
-	margin: 0 0 72px; 
+	font-size: 1.5em; 
+	font-weight: 300;
 	text-align: center; 
 }
-
 
 p {
 	color: #685205;
@@ -34,4 +40,50 @@ p {
 	list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 45px;
+  padding: 10px 45px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form label {
+	text-align: left;
+	font-family: sans-serif;
+}
+
+.form input {
+  font-family: sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form .submit-button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form .submit-button:hover,.form .submit-button:active,.form .submit-button:focus {
+  background: #43A047;
 }
