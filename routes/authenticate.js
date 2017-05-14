@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     if(req.isAuthenticated()){
         res.redirect("/hub");
     } else {
-        res.render("authenticate/login-signup", {error: req.flash('error')});
+        res.render("authenticate/login-signup", {error: req.flash('error'), signup_error: req.flash('signup-error')});
     }
 });
 
@@ -29,12 +29,12 @@ router.post("/signup", (req, res, next) => {
     username = xss(userArgs.username);
     password = xss(userArgs.password);
 	if (username.length == 0) {
-		req.flash("error", "Please provide a username");
-		return res.redirect("/");
+		req.flash("signup-error", "Please provide a username");
+		return res.redirect("/#error=true");
 	}
 	if (password.length == 0) {
-		req.flash("error", "Please provide a password");
-		return res.redirect("/");
+		req.flash("signup-error", "Please provide a password");
+		return res.redirect("/#error=true");
 	}
     userData.addUser(username, password).then((user) => {
         console.log(user);
