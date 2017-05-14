@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 let exportedMethods = {
+	USER_ERROR: "user already exists",
+
 	getAllUsers() {
         return users().then((userCollection) => {
             return userCollection.find({}).toArray();
@@ -38,17 +40,25 @@ let exportedMethods = {
                 _id: uuid.v4(),
                 password: bcrypt.hashSync(password, saltRounds),
                 profile: {
-					          username: username,
-					          mediaList: [],
-					          _id: uuid.v4()
-				        }
+					username: username,
+					mediaList: [],
+					_id: uuid.v4()
+				}
             };
-
-            return userCollection.insertOne(newUser).then((newInsertInformation) => {
-                return newInsertInformation.insertedId;
-            }).then((newId) => {
-                return this.getUserById(newId);
-            });
+            return this.getUserByUsername(username).then((user) => {
+            	if(user != undefined){
+            		console.log("REJECTING");
+            		return Promise.reject(this.USER_ERROR);
+				} else {
+					return userCollection.insertOne(newUser).then((newInsertInformation) => {
+						return newInsertInformation.insertedId;
+					}).then((newId) => {
+						return this.getUserById(newId);
+					});
+				}
+			}, (error) => {
+            	return Promise.reject(error);
+			});
         });
     },
 

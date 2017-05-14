@@ -26,12 +26,17 @@ router.get("/logout", (req, res) => {
 router.post("/signup", (req, res, next) => {
     let userArgs = req.body;
     userData.addUser(userArgs.username, userArgs.password).then((user) => {
+        console.log(user);
         req.login(user, (err) => {
             if(err) next(err);
             return res.redirect("/");
         });
-    }, () => {
-        res.sendStatus(500);
+    }, (error) => {
+        if(error === userData.USER_ERROR){
+            req.flash("error", userData.USER_ERROR);
+            res.redirect("/");
+        }
+        res.status(500).json(error);
     });
 });
 
