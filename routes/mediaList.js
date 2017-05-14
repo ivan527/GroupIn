@@ -11,6 +11,12 @@ router.get("/:_id", (req, res) => {
 	});
 });
 
+router.get("/:_mediaListId/:_mediaId/remove", (req, res) => {
+	mediaListData.getMediaListById(req.params._id).then((mediaList) => {
+
+	})
+})
+
 router.post("/:_id/addMember", (req, res) => {
 	let formInfo = req.body;
 	let errors = [];
@@ -67,6 +73,7 @@ router.post("/:_id/addMedia", (req, res) => {
 	}
 
 	let media = {
+		_id: uuid.v4(),
 		title: formInfo.mediaTitle,
 		type: formInfo.mediaType,
 		episodes: parseInt(formInfo.numEpisodes),
