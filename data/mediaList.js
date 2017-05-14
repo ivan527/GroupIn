@@ -114,7 +114,40 @@ let exportedMethods = {
 				});
 			});
 		});
-	}
+	},
+
+	voteToSkipById(mediaListId, mediaId) {
+		return this.getMediaListById(mediaListId).then((currentMediaList) => {
+			let i;
+			let vote;
+			for (i = 0; i < currentMediaList.media.length; i++) {
+				if (currentMediaList.media[i]._id == mediaId) {
+					vote = currentMediaList.media[i].voteToSkip + 1
+					break;
+				}
+			}
+			let updateCommand = {};
+			if (vote > currentMediaList.members.length/2) {
+				updateCommand["media.$.status"] = "Skip"
+			}
+			updateCommand["media.$.voteToSkip"] = vote
+
+			return mediaListCollection.update({_id: mediaListId, media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
+				return this.getMediaListById(mediaListId);
+			});
+		});
+	},
+
+	setMediaToWatched(mediaList, mediaId) {
+		return this.getMediaListById(mediaListId).then((currentMediaList) => {
+			let updateCommand = {};
+			updateCommand["media.$.status"] = "watched"
+
+			return mediaListCollection.update({_id: mediaListId, media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
+				return this.getMediaListById(mediaListId);
+			});
+		});
+	},
 };
 
 module.exports = exportedMethods;
