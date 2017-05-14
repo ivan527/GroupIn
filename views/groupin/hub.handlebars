@@ -1,20 +1,22 @@
-<div>
-    <h2>Create new Group</h2>
-    <form action="/medialist/create" method="POST">
-        <div>
-            <label>Group Name:
-                <input type="text" id="group-name" placeholder="Group Name" name="group_name">
-            </label>
-        </div>
-        <input type="submit">
-    </form>
-
+<div class="form" id="hub-section">
     <div>
         <p>Welcome, {{username}}!</p>
+        <p>Here are your current lists:</p>
         {{#if mediaList}}
             {{#list mediaList}}
                 <a href="/medialist/{{_id}}">{{name}}</a>
             {{/list}}
         {{/if}}
     </div>
+
+    <form action="/medialist/create" method="POST">
+        <h2>Create new Group</h2>
+        <div>
+            <label for="group-name">Group Name:</label>
+            <input type="text" id="group-name" placeholder="Group Name" name="group_name">
+        </div>
+        <div>
+            <input class="submit-button" type="submit" value="CREATE">
+        </div>
+    </form>
 </div>
