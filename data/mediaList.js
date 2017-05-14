@@ -19,6 +19,16 @@ let exportedMethods = {
 		});
 	},
 
+	getMediaListByMediaId(id){
+		return mediaList().then((mediaListCollection) => {
+			return mediaListCollection.findOne({media: {$elemMatch: {_id: id}}}).then((media) => {
+				if(!mediaList) return Promise.reject("Media not found");
+
+				return media;
+			});
+		});
+	},
+
 	getMediaListsByUser(user_id) {
 		return mediaList().then((mediaListCollection) => {
 			return mediaListCollection.find({members: user_id}).toArray()
@@ -33,7 +43,7 @@ let exportedMethods = {
 				creator: creator,
 				members: [creatorId],
 				media: [],
-				progress: []
+				progress: [[creatorId, 0]]
 			};
 
 			return mediaListCollection.insertOne(newMediaList).then((newInsertInformation) => {
@@ -61,7 +71,7 @@ let exportedMethods = {
 				progress: currentMediaList.progress.slice()
 			};
 			newMemberListInfo.members.push(memberId);
-			newMemberListInfo.progress.push((memberId, 0));
+			newMemberListInfo.progress.push([memberId, 0]);
 
 			let updateCommand = {
 				$set: newMemberListInfo
@@ -119,35 +129,40 @@ let exportedMethods = {
 		});
 	},
 
-	voteToSkipById(mediaListId, mediaId) {
-		return this.getMediaListById(mediaListId).then((currentMediaList) => {
-			let i;
-			let vote;
-			for (i = 0; i < currentMediaList.media.length; i++) {
-				if (currentMediaList.media[i]._id == mediaId) {
-					vote = currentMediaList.media[i].voteToSkip + 1
-					break;
+	voteToSkipById(mediaId) {
+		return mediaList().then((mediaListCollection) => {
+			return this.getMediaListByMediaId(mediaId).then((currentMediaList) => {
+				let i;
+				let vote;
+				for (i = 0; i < currentMediaList.media.length; i++) {
+					if (currentMediaList.media[i]._id == mediaId) {
+						vote = currentMediaList.media[i].voteToSkip + 1;
+						break;
+					}
 				}
-			}
-			let updateCommand = {};
-			if (vote > currentMediaList.members.length/2) {
-				updateCommand["media.$.status"] = "Skip"
-			}
-			updateCommand["media.$.voteToSkip"] = vote
 
-			return mediaListCollection.update({_id: mediaListId, media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
-				return this.getMediaListById(mediaListId);
+				let updateCommand = {};
+				if (vote > currentMediaList.members.length/2) {
+					updateCommand["media.$.status"] = "Skip"
+				}
+				updateCommand["media.$.voteToSkip"] = vote;
+
+				return mediaListCollection.update({media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
+					return this.getMediaListById(currentMediaList._id);
+				});
 			});
 		});
 	},
 
-	setMediaToWatched(mediaListId, mediaId) {
-		return this.getMediaListById(mediaListId).then((currentMediaList) => {
-			let updateCommand = {};
-			updateCommand["media.$.status"] = "watched"
+	setMediaToWatched(mediaId) {
+		return mediaList().then((mediaListCollection) => {
+			return this.getMediaListByMediaId(mediaId).then((currentMediaList) => {
+				let updateCommand = {};
+				updateCommand["media.$.status"] = "watched"
 
-			return mediaListCollection.update({_id: mediaListId, media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
-				return this.getMediaListById(mediaListId);
+				return mediaListCollection.update({media: {$elemMatch: {_id: mediaId}}}, {$set: updateCommand}).then(() => {
+					return this.getMediaListById(currentMediaList._id);
+				});
 			});
 		});
 	},
