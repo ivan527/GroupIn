@@ -4,6 +4,7 @@ const data = require("../data");
 const userData = data.users;
 const mediaListData = data.mediaList;
 const uuid = require("node-uuid");
+const xss = require("xss");
 
 router.get("/:_id", (req, res) => {
 	mediaListData.getMediaListById(req.params._id).then((mediaList) => {
@@ -46,11 +47,10 @@ router.get("/:_mediaListId/progress", (req, res) => {
 	});
 });
 
-
-
 router.post("/:_id/addMember", (req, res) => {
 	let formInfo = req.body;
 	let errors = [];
+	formInfo.newMember = xss(formInfo.newMember);
 	console.log("add members");
 	if (typeof formInfo.newMember !== "string" ||
 		formInfo.newMember.length === 0){
@@ -79,21 +79,25 @@ router.post("/:_id/addMedia", (req, res) => {
 		formInfo.mediaTitle.length === 0){
 		errors.push("No title provided");
 	}
+	formInfo.mediaTitle = xss(formInfo.mediaTitle);
 
 	if(typeof formInfo.mediaType !== "string" ||
 		formInfo.mediaType.length === 0){
 		errors.push("No type provided");
 	}
+	formInfo.mediaType = xss(formInfo.mediaType);
 
 	if(typeof formInfo.numEpisodes !== "string" ||
 		formInfo.numEpisodes.length === 0){
 		errors.push("No number of Episodes provided");
 	}
+	formInfo.numEpisodes = xss(formInfo.numEpisodes);
 	
 	if(typeof formInfo.refLink !== "string" ||
 		formInfo.refLink.length === 0){
 		errors.push("No reference link provided");
 	}
+	formInfo.refLink = xss(formInfo.refLink);
 
 	if(errors.length > 0){
 		errors.forEach((error) => {
@@ -125,6 +129,7 @@ router.post("/:_id/addMedia", (req, res) => {
 router.post("/create", (req, res) => {
 	console.log("create");
     let mediaListArgs = req.body;
+    mediaListArgs.group_name = xss(mediaListArgs.group_name);
     mediaListData.addMediaList(req.user.username, req.user._id, mediaListArgs.group_name).then((mediaList) => {
 		res.redirect("/hub");
     }, (err) => {
