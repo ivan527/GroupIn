@@ -76,7 +76,8 @@ p {
   background: #4CAF50;
   width: 100%;
   border: 0;
-  padding: 15px;
+  padding: 15px 0;
+  margin: 0;
   color: #FFFFFF;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
@@ -86,4 +87,20 @@ p {
 
 .form .submit-button:hover,.form .submit-button:active,.form .submit-button:focus {
   background: #43A047;
+}
+
+.form #signup-form {
+	display: none;
+}
+
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 14px;
+  text-align: center;
+}
+
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
 }
