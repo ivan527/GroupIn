@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const userData = data.users;
 const mediaListData = data.mediaList;
+const uuid = require("node-uuid");
 
 router.get("/:_id", (req, res) => {
 	mediaListData.getMediaListById(req.params._id).then((mediaList) => {
@@ -11,17 +12,18 @@ router.get("/:_id", (req, res) => {
 	});
 });
 
-router.get("/:_mediaListId/:_mediaId/remove", (req, res) => {
-	mediaListData.voteToSkipById(req.params._mediaListId, req.params._mediaId).then((mediaList) => {
-		return res.redirect(`/medialist/${req.params._mediaListId}`);
+router.get("/media/:_mediaId/skip", (req, res) => {
+	mediaListData.voteToSkipById(req.params._mediaId).then((mediaList) => {
+		return res.redirect(`/medialist/${mediaList._id}`);
 	}).catch((e) => {
+		console.log(e);
 		return res.status(500).json({error: e});
 	});
 });
 
-router.get("/:_mediaListId/:_mediaId/watched", (req, res) => {
-	mediaListData.setMediaToWatched(req.params._mediaListId, req.params._mediaId).then((mediaList) => {
-		return res.redirect(`/medialist/${req.params._mediaListId}`);
+router.get("/media/:_mediaId/watched", (req, res) => {
+	mediaListData.setMediaToWatched(req.params._mediaId).then((mediaList) => {
+		return res.redirect(`/medialist/${mediaList._id}`);
 	}).catch((e) => {
 		return res.status(500).json({error: e});
 	});
@@ -31,6 +33,7 @@ router.get("/:_mediaListId/progress", (req, res) => {
 	mediaListData.incrementProgress(req.params._mediaListId, req.user._id).then((mediaList) => {
 		return res.redirect(`/medialist/${req.params._mediaListId}`);
 	}).catch((e) => {
+		console.log(e);
 		return res.status(500).json({error: e});
 	});
 });
