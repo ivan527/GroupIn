@@ -24,11 +24,10 @@ router.post("/:_id/addMember", (req, res) => {
 		errors.forEach((error) => {
 			req.flash("error", error);
 		});
-		console.log("redirectings");
 		return res.redirect(`/medialist/${req.params._id}`);
 	}
 
-	mediaListData.addMember(req.params.id, formInfo.newMember).then((newMember) => {
+	mediaListData.addMember(req.params._id, formInfo.newMember).then((newMember) => {
 		return res.redirect(`/medialist/${req.params._id}`);
 	}).catch((e) => {
 		return res.status(500).json({error: e});
