@@ -12,17 +12,18 @@ router.get("/:_id", (req, res) => {
 	});
 });
 
-router.get("/:_mediaListId/:_mediaId/remove", (req, res) => {
-	mediaListData.voteToSkipById(req.params._mediaListId, req.params._mediaId).then((mediaList) => {
-		return res.redirect(`/medialist/${req.params._mediaListId}`);
+router.get("/media/:_mediaId/skip", (req, res) => {
+	mediaListData.voteToSkipById(req.params._mediaId).then((mediaList) => {
+		return res.redirect(`/medialist/${mediaList._id}`);
 	}).catch((e) => {
+		console.log(e);
 		return res.status(500).json({error: e});
 	});
 });
 
-router.get("/:_mediaListId/:_mediaId/watched", (req, res) => {
-	mediaListData.setMediaToWatched(req.params._mediaListId, req.params._mediaId).then((mediaList) => {
-		return res.redirect(`/medialist/${req.params._mediaListId}`);
+router.get("/media/:_mediaId/watched", (req, res) => {
+	mediaListData.setMediaToWatched(req.params._mediaId).then((mediaList) => {
+		return res.redirect(`/medialist/${mediaList._id}`);
 	}).catch((e) => {
 		return res.status(500).json({error: e});
 	});
