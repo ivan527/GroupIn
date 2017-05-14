@@ -5,9 +5,9 @@ const userData = data.users;
 const mediaListData = data.mediaList;
 
 router.get("/:_id", (req, res) => {
-	console.log("get list");
-	medialistData.getMediaListById(req.params.id).then((mediaList) => {
-		res.render('groupin/mediaList', {creator: mediaList.creator, media: mediaList.media})
+	mediaListData.getMediaListById(req.params._id).then((mediaList) => {
+		console.log(mediaList);
+		res.render('groupin/mediaList', {mediaList: mediaList, errors: req.flash("error")});
 	});
 });
 
@@ -17,28 +17,34 @@ router.post("/:_id/addMember", (req, res) => {
 });
 
 router.post("/:_id/addMedia", (req, res) => {
-	console.log("add media");
 	let formInfo = req.body;
 	let errors = []
-	if (!formInfo.mediaTitle){
+	if (typeof formInfo.mediaTitle !== "string" ||
+		formInfo.mediaTitle.length === 0){
 		errors.push("No title provided");
 	}
 
-	if(!formInfo.mediaType){
+	if(typeof formInfo.mediaType !== "string" ||
+		formInfo.mediaType.length === 0){
 		errors.push("No type provided");
 	}
 
-	if(!formInfo.numEpisodes){
+	if(typeof formInfo.numEpisodes !== "number" ||
+		formInfo.numEpisodes === 0){
 		errors.push("No number of Episodes provided");
 	}
 	
-	if(!formInfo.refLink){
+	if(typeof formInfo.refLink !== "string" ||
+		formInfo.refLink.length === 0){
 		errors.push("No reference link provided");
 	}
 
 	if(errors.length > 0){
-		res.render("groupin/mediaList", {errors: errors, hasErrors:true, post: formInfo});
-		return;
+		errors.forEach((error) => {
+			req.flash("error", error);
+		});
+		console.log("redirectings");
+		return res.redirect(`/medialist/${req.params._id}`);
 	}
 
 	let media = {
@@ -52,9 +58,9 @@ router.post("/:_id/addMedia", (req, res) => {
 
 	mediaListData.addMedia(req.params._id, media)
 	.then((newMedia) => {
-		res.redirect('/${newMedia._id}');
+		return res.redirect(`/medialist/${req.params._id}`);
 	}).catch((e) => {
-		res.status(500).json({error: e});
+		return res.status(500).json({error: e});
 	});
 });
 
