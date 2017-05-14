@@ -1,19 +1,21 @@
-<p>Please login using the form below</p>
-<form id="static-form" method="POST" action="/login">
+<section class="login-section">
+<div class="form">
+
+<form id="login-form" method="POST" action="/login">
+    <h2>Login</h2>
     <div>
-        <label>Username:
-            <input type="text" id="login-username" placeholder="username" name="username">
-        </label>
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" placeholder="username" name="username">
     </div>
     <div>
-        <label>Password:
-            <input type="password" id="login-password" placeholder="password" name="password">
-        </label>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" placeholder="password" name="password">
     </div>
     <div>
-        <input type="submit">
+        <input class="submit-button" type="submit" value="LOGIN">
     </div>
 </form>
+
 {{#if error}}
 <div id="error-container">
     <div>Error: </div>
@@ -23,19 +25,20 @@
 </div>
 {{/if}}
 
-<p>Please signup using the form below</p>
-<form id="static-form" method="POST" action="/signup">
+<form id="signup-form" method="POST" action="/signup">
+    <h2>Sign up</h2>
     <div>
-        <label>Username:
-            <input type="text" id="signup-username" placeholder="username" name="username">
-        </label>
+        <label for="signup-username">Username:</label>
+        <input type="text" id="signup-username" placeholder="username" name="username">
     </div>
     <div>
-        <label>Password:
-            <input type="password" id="signup-password" placeholder="password" name="password">
-        </label>
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" placeholder="password" name="password">
     </div>
     <div>
-        <input type="submit">
+        <input class="submit-button" type="submit" value="SIGN UP">
     </div>
 </form>
+
+</div>
+</section>
